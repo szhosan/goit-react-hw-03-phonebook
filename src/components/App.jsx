@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 import ContactsList from './ContactsList/ContactsList';
 import ContactSearch from './ContactSearch/ContactSearch';
 
+const LOCAL_STORAGE_KEY = 'contacts';
+
 class App extends Component {
   state = {
     contacts: [
@@ -15,6 +17,24 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+
+    if (nextContacts !== prevContacts) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(nextContacts));
+    }
+  }
 
   nameAlreadyExist(contacts, nameToAdd) {
     return contacts.find(
