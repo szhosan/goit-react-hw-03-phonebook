@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import s from './ContactsList.module.css';
 
@@ -22,3 +23,7 @@ const ContactsList = ({ contacts, onDeleteContact, children }) => (
   </>
 );
 export default ContactsList;
+
+ContactsList.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object),
+};
