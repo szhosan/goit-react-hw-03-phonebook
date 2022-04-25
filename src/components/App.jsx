@@ -46,7 +46,7 @@ class App extends Component {
     this.setState(prevState => {
       if (this.nameAlreadyExist(prevState.contacts, data.name)) {
         alert(`${data.name} is already in contacts`);
-        return { contacts: [...prevState.contacts] };
+        return;
       }
       return { contacts: [...prevState.contacts, { id: nanoid(), ...data }] };
     });
@@ -72,22 +72,19 @@ class App extends Component {
   };
 
   render() {
+    const { contacts, filter } = this.state;
     return (
       <>
         <Section title="Phonebook">
           <AddContactForm onSubmit={this.formSubmitHandler} />
         </Section>
-        {this.state.contacts.length > 0 && (
+        {contacts.length > 0 && (
           <Section title="Contacts">
+            <ContactSearch value={filter} onChange={this.handleSearchContact} />
             <ContactsList
               contacts={this.getFilteredContacts()}
               onDeleteContact={this.onDeleteContact}
-            >
-              <ContactSearch
-                value={this.filter}
-                onChange={this.handleSearchContact}
-              />
-            </ContactsList>
+            />
           </Section>
         )}
       </>
