@@ -5,14 +5,11 @@ import s from './ContactsList.module.css';
 const ContactsList = ({ contacts, onDeleteContact }) => (
   <>
     <ul className={s.list}>
-      {contacts.map(contact => (
-        <li key={contact.id}>
+      {contacts.map(({ id, name, number }) => (
+        <li key={id}>
           <div className={s.listItemContainer}>
-            {contact.name}: {contact.number}
-            <button
-              className={s.button}
-              onClick={() => onDeleteContact(contact.id)}
-            >
+            {name}: {number}
+            <button className={s.button} onClick={() => onDeleteContact(id)}>
               Delete
             </button>
           </div>

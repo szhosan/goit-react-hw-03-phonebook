@@ -31,7 +31,7 @@ class App extends Component {
     const nextContacts = this.state.contacts;
     const prevContacts = prevState.contacts;
 
-    if (nextContacts !== prevContacts) {
+    if (nextContacts.length !== prevContacts.length) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(nextContacts));
     }
   }
